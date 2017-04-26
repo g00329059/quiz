@@ -1,0 +1,259 @@
+	`<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lord Of the Rings Quiz</title>
+<link href="CSS/quiz.css" rel="stylesheet" type="text/css">
+
+<style>
+	#bgvid{
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		min-width: 100%;
+		min-height: 100%;
+		width: auto;
+		height: auto;
+		z-index: -100;
+		-ms-transform: translateX(-50%) translateY(-50%);
+		-moz-transform: translateX(-50%) translateY(-50%);
+		-webkit-transform: translateX(-50%) translateY(-50%);
+		transform: translateX(-50%) translateY(-50%);
+		background:url(BackgroundME.mp4) no-repeat;
+		background-size: cover;
+	}
+	#bar::-webkit-progress-value{background:gold}
+	
+	}
+	#test_status{
+		
+		max-width: 100px;
+		padding-bottom: 10px;
+		margin-left: 100px;
+		border-radius: 25px;
+		background-color: grey;
+		
+	}
+	#test{ border: #770709, 5px solid; padding: 0px 20px 20px 20px;
+			color: gold;
+			font-size: 20px;
+			background-color: grey;
+			opacity: 0.5;
+			max-width: 20%;
+			border-radius: 25px;
+			margin-top: 30px;
+	}
+	#test:hover{
+		opacity: 1;
+	}
+	
+	
+	#abcd{
+		width: 50%;
+		margin-left: 15px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	#elf{
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	width: 0%;
+	
+}
+	#picture{
+		visibility: hidden;
+	}
+	#picture1{
+		visibility: hidden;
+	}
+	#picture2{
+		visibility: hidden;
+	}
+	#picture3{
+		visibility: hidden;
+	}
+	#audio{
+		visibility: hidden;
+	}
+	#video{
+		padding-left: 20%;
+		float: right;
+		
+	}
+	
+	
+</style>
+
+<script>
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, chD, correct = 0;
+var questions = [
+	["There are 10 Easy, Medium, Hard Questions and 4 picture rounds on The Lord of the Rings. Good Luck!						How many Hobbits are there in the Fellowship?", "1", "2", "3", "4", "D"],
+	["What is the name of Frodo's Sword?", "Thrasher", "Needle", "Sting", "Narsil", "C"],
+	["Who is the actor that plays Gandalf", "Christopher Lee", "Ian McKellahan", "Peter Jackson", "Viggo Mortenson", "C"],
+	["Which 4 Hobbits go on a quest to destroy the One Ring?", "Frodo Same Merry Pippin", "Mery Pipein Same Frodo", "Frodo Sam Meery Pippin", "Frodo Sam Merry Pippin", "D"],
+	["What is Frodo's Surname?", "Brandybuck", "Baggins", "Gamgee", "Took", "B"],
+	["What is the Name of the Ent that Merry and Pippin meet?", "Treebeard", "Treebark", "Treestump", "Treefour", "A"],
+	["The inscription on the One Ring is revealed by?", "Elbow Grease", "Ice", "Fire", "Soap and Water", "C"],
+	["Where were the Lord of the rings filmed?", "Ireland", "USA", "New Zealand", "Cuba", "C"],
+	["Finish this iconic sentance: Its mine, my own, my:", "Frodo", "Wadi", "Precious", "King", "C"],
+	["Where was the One Ring forged?", "Shire", "Mordor", "Gondor", "Rhûn", "B"],
+	["On to the next Level! What age is Aragorn when he tells Eowyn?", "87", "70", "43", "39", "A"],
+	["Who is the daughter of Elrond?", "Eowyn", "Arwen", "Galadriel", "Celeborn", "B"],
+	["How many great rings were forged?", "20", "19", "18", "17", "A"],
+	["What gift did Galadriel give to Sam?", "Hair", "Elvish rope", "Lembas Bread", "Dagger", "B"],
+	["What is Lurtz?", "Uruk-hai", "Spider", "Ent", "Orc", "A"],
+	["What does Arwen give up for Aragorn?", "Her Life", "Her Immortality", "Orchrist", "Her Evenstar necklace", "B"],
+	["Which Hobbit gets stabbed by the Witch King?", "Frodo", "Sam", "Pippin", "Merry", "A"],
+	["Which Hobbit stabs the Witch King?", "Frodo", "Sam", "Pippin", "Merry", "D"],
+	["Who cut the One Ring from the hand of Sauron?", "Aragorn", "Isildur", "Borimir", "Gandalf", "A"],
+	["Who is the king of Rohan?", "Eomer", "Faramir", "Sauruman", "Théoden", "D"],
+	["On to The Hard Questons! In the LOTR books, 1) Elves never came to the battle of helms deep and 2) Saruman took over the Shire for a time after the fall of Sauron.", "Both are true", "Both are false", "the first is true only", "the second is true only", "A"],
+	["Who first created Orcs?", "Sauron", "Melkor", "Sauruman", "Feanor", "B"],
+	["According to the books, how much time passed between the beggining of the Fellowship of the ring and end of the Return of the king?", "3 months", "18 months", "12 years", "20 years", "D"],
+	["What is the last remaining balrog called", "Durin's bane", "Morgon", "Elendir", "Haradroth", "A"],
+	["Who was the first King Under the Mountain?", "Thráin I", "Durin", "Thror", "Dain", "A"],
+	["What is NOT another name for Gandalf?", "Orome", "Mithrandir", "Tharkûn", "Incánus", "A"],
+	["What does Menegroth mean?", "Helms Deep", "The Thousand Caves", "Angbad", "Doriath", "B"],
+	["Name the three groups of Elves in Valinor", "Wood Elves, High Elves, and Dark Elves", "Vanyar, Noldor, Teleri", "Moriquendi, Teleri, Vanyar", "Sindar, Avari, Noldor", "B"],
+	["In which battle did the hosts of Valinor overthrow morgoth", "The battle of the 5 armies", "The war of wrath", "The siege of bara-dur", "The battle of the Feanor", "B"],
+	["What does the name Galadriel mean?", "Maiden crowned Wide as the Galaxy", "Maiden Crowned Wise and Fair", "Maiden Crowned Eternal Youth", "Maiden crowned with a radiant garland", "B"],
+	["On to picture rounds! Click the Corresponding buttons below for each question! Which one of these is Haldir?", "A", "B", "C", "D", "B"],
+	["Which of these is Amon Sul?", "A", "B", "C", "D", "D"],
+	["Which of the following do the Nazgûl ride?:", "A", "B", "C", "D", "C"],
+	["Which of these is the reforged sword of Narsil, known as Andúril?", "A", "B", "C", "D", "C"]
+	];
+function _(x){
+	return document.getElementById(x);
+}
+function percent(){
+	var perc = Math.round((correct/questions.length)*100);
+	return perc;
+}
+function renderQuestion(){
+	test = _("test");
+	if(pos >= questions.length){
+		test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+		_("test_status").innerHTML = "Test Completed";
+		pos = 0;
+		correct = 0;
+		return false;
+	}
+	var bar=document.getElementById("bar");
+	_("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+	bar.value = (pos+1)
+	question = questions[pos][0];
+	chA = questions[pos][1];
+	chB = questions[pos][2];
+	chC = questions[pos][3];
+	chD = questions[pos][4];
+	test.innerHTML = "<h3>"+question+"</h3>";
+	test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+	test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+	test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br>";
+	test.innerHTML += "<input type='radio' name='choices' value='D'> "+chD+"<br><br>";
+	test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+	choices = document.getElementsByName("choices");
+	for(var i=0; i<choices.length; i++){
+		if(choices[i].checked){
+			choice = choices[i].value;
+		}
+	}
+	if(choice == questions[pos][5]){
+		correct++;
+		alert("Correct!");
+		correct++;
+	}
+	else{
+		alert("Incorrect. The correct answer is " +question[pos][5]);
+	}
+	
+	pos++;
+	renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+
+<body>
+<video playsinline autoplay muted loop poster="BackgroundME.mp4" id="bgvid">
+	<source src="BackgroundME.mp4" type="video/mp4">
+</video>
+<div id="video">
+<video controls autoplay width="600" height="400">
+	<source src="The Lord of the Rings Trilogy Epic Tribute Video (1).mp4">
+
+</video>	
+	
+</div>
+<br>
+<progress id="bar" class="red" style="float: left; width: 500px; position: absolute" value="0" max="34"></progress><br>
+<div id="animate">
+	
+</div>
+<h2 id="test_status"  style="color: gold; height: 0px; border-radius: 25px;"></h2>
+<div id="test" style="max-width: 100px width"></div>
+<table width="100%" id="abcd" border="0" style="color: gold">
+  <tr id="abcd">
+    <td><h1>A</h1></td>
+    <td><h1>B</h1></td>
+    <td><h1>C</h1></td>
+    <td><h1>D</h1></td>
+  </tr>
+ </table>
+	<script src="Quiz.js"></script>
+ <input id="button" type="button" value="Q31" onClick="check();">
+
+	<div id="picture">
+<table width="100%" id="elf" border="0">
+  <tr>
+    <td><img src="img/Elrond.jpg" id="pic" alt=""/></td>
+    <td><img src="img/Haldir.jpg" id="pic" alt=""/></td>
+    <td><img src="img/Legolas.jpg" id="pic" alt=""/></td>
+    <td><img src="img/Elf.jpg" id="pic" alt=""/></td>
+  </tr>
+ </table>
+   </div>
+   <input id="button" type="button" value="Q32" onClick="check1();">
+	<div id="picture1">
+	
+<table width="100%" id="elf" border="0">
+  <tr>
+    <td><img src="img/HelmsDeep.jpg"img/Elrond.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/minasmorgul.jpg"img/Haldir.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/MinasTirith.jpg" id="pic" alt=""/></td>
+    <td><img src="img/AmonSul.jpg"img/Elf.jpg"" id="pic" alt=""/></td>
+  </tr>
+ </table>
+   </div>
+<input id="button" type="button" value="Q33" onClick="check2();">
+	<div id="picture2">
+	
+<table width="100%" id="elf" border="0">
+  <tr>
+    <td><img src="img/Balrog.jpg"img/Elrond.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/Oliphaunt.jpg"img/Haldir.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/Fellbeast.jpg"img/Legolas.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/Troll.jpg"img/Elf.jpg"" id="pic" alt=""/></td>
+  </tr>
+ </table>
+   </div>
+   <input id="button" type="button" value="Q34" onClick="check3();">
+	<div id="picture3">
+	
+<table width="100%" id="elf" border="0">
+  <tr>
+    <td><img src="img/SwordRanger.jpg"img/Sword.jpg""img/Elrond.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/Narsil.jpg"img/Haldir.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/Anduril.jpg"img/Legolas.jpg"" id="pic" alt=""/></td>
+    <td><img src="img/Sword.jpg" id="pic" alt=""/></td>
+  </tr>
+ </table>
+   </div>
+   
+
+</body>
+</html>

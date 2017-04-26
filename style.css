@@ -1,0 +1,72 @@
+#wrapper{
+}
+form{
+	width: 200px;
+	margin: 0px;
+}
+form div{
+	margin: 3px;
+}
+.textInput{
+	margin-top: 2px;
+	height: 28px;
+	border: 1px solid #5E6E66;
+	font-size: 16px
+	padding: 1px;
+	width: 200px;
+}
+.btn{
+	padding: 7px;
+	width: 400px;
+}
+.val_error{
+	color: #FF1F1F;
+}
+#html{
+	margin-top: 2px;
+	height: 28px;
+	border: 1px solid #5E6E66;
+	font-size: 16px
+	padding: 1px;
+	width: 200px;
+}
+#title{
+	font-family: Ringbearer; /* custom font */
+	text-align: center;
+	color: #600000;
+	font-size: 32px;
+	padding-top: 160px;
+		
+}
+#ring .navbar.navbar-default.navbar-fixed-top #title {
+}
+
+#ring{
+	background-image: url(../../../Documents/Unnamed Site 2/RING background.jpg)
+}
+#wrapper{
+	max-width:210px;
+	max-height:250px;
+	text-align: center;
+	padding-top: 0%;
+	padding-left: 0%;
+	border-style: groove;
+	padding-right: -100px;
+}
+#h2{
+	padding-left: 10px;
+	color: #fff;
+	font-family: Ringbearer;
+}
+#form{
+	font-family: Ringbearer;
+}
+#footer{
+	
+	background-repeat:no-repeat;
+	background-image:url(../../../Documents/Unnamed Site 2/footer.PNG);
+	position: fixed;
+}
+#audio{
+	visibility: hidden;
+}
